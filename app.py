@@ -43,7 +43,7 @@ class VideoProcessor:
         img = process(img)
 
         return av.VideoFrame.from_ndarray(img, format="bgr24")
-
+"""
 webrtc_ctx = webrtc_streamer(
     key="WYH",
     mode=WebRtcMode.SENDRECV,
@@ -52,3 +52,25 @@ webrtc_ctx = webrtc_streamer(
     video_processor_factory=VideoProcessor,
     async_processing=True,
 )
+"""
+
+webrtc_streamer(key="example",
+			rtc_configuration={"iceServers":[
+
+				{"urls":"stun:openrelay.metered.ca:80",},
+
+				{"urls":"turn:openrelay.metered.ca:80",
+				"username":"openrelayproject",
+				"credential":"openrelayproject",},
+
+				{"urls":"turn:openrelay.metered.ca:443",
+				"username":"openrelayproject",
+				"credential":"openrelayproject",},
+
+				{"urls":"turn:openrelay.metered.ca:443?transport=tcp",
+				"username":"openrelayproject",
+				"credential":"openrelayproject",},],},
+
+			video_processor_factory=VideoProcessor,
+			media_stream_constraints={"video":True, "audio":False})
+
